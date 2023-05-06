@@ -6,11 +6,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,35 +19,66 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.polinasmogi.threesomemeal.data.Recipe
 import com.polinasmogi.threesomemeal.data.SampleData
-import com.polinasmogi.threesomemeal.ui.shapes.MithosisShape
-import com.polinasmogi.threesomemeal.ui.theme.ThreesomeMealTheme
-import com.polinasmogi.threesomemeal.ui.theme.pink
+import com.polinasmogi.threesomemeal.ui.shapes.SubtractShape
+import com.polinasmogi.threesomemeal.ui.shapes.TitleBackgroundShape
+import com.polinasmogi.threesomemeal.ui.theme.*
 
+@ExperimentalMaterial3Api
 @Composable
 fun RecipeDetails(recipe: Recipe) {
-    Surface(
-        color = Color.Transparent,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                top = 18.dp,
-                start = 16.dp,
-                end = 16.dp
-            )
+    BottomSheetScaffold(
+        sheetContent = {
+            Column {
+                Text(
+                    text = "Let's cook",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = Color.White,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(bottom = 20.dp)
+                )
+                LazyColumn(
+                    userScrollEnabled = false,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 20.dp)
+                ) {
+                    items(recipe.instructions) {step ->
+                        StepItem(step = step)
+                    }
+                }
+            }
+        },
+        sheetShape = SubtractShape,
+        sheetContainerColor = raspberryGlace,
+        sheetPeekHeight = 120.dp
     ) {
-        val scrollState = rememberScrollState()
-        LazyColumn(
+        Column(
             modifier = Modifier
-                .background(shape = MithosisShape, color = pink)
+                .background(harp)
+                .fillMaxHeight()
+                .fillMaxWidth()
         ) {
-            item {
                 Text(
                     text = recipe.name,
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .background(color = saffronMango, shape = TitleBackgroundShape)
+                        .padding(
+                            top = 18.dp,
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = 18.dp
+                        )
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = 12.dp)
+                    modifier = Modifier.padding(
+                        top = 24.dp,
+                        start = 16.dp,
+                        end = 16.dp,
+                    )
                 ) {
                     AsyncImage(
                         model = recipe.firstIngredient.image,
@@ -60,31 +88,45 @@ fun RecipeDetails(recipe: Recipe) {
                             .clip(shape = CircleShape)
                             .height(90.dp)
                             .width(90.dp)
-                            .border(width = 4.dp, color = Color.White, shape = CircleShape)
+                            .border(width = 4.dp, color = appleGreen, shape = CircleShape)
                     )
-                    Text(
-                        text = "${recipe.firstIngredient.name}, " +
-                                "${recipe.firstIngredient.amount} " +
-                                "${recipe.firstIngredient.unit}",
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(start = 16.dp),
-                        color = Color.White
-                    )
+                    Column(
+                        modifier = Modifier.padding(start = 16.dp)
+                    ) {
+                        Text(
+                            text = recipe.firstIngredient.name,
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Text(
+                            text = "${recipe.firstIngredient.amount} " +
+                                    "${recipe.firstIngredient.unit}",
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .padding(top = 12.dp)
-//                        .align(Alignment.End)
+                        .padding(
+                            top = 12.dp,
+                            start = 16.dp,
+                            end = 16.dp,
+                        )
+                        .align(Alignment.End)
                 ) {
-                    Text(
-                        text = "${recipe.secondIngredient.name}, " +
-                                "${recipe.secondIngredient.amount} " +
-                                "${recipe.secondIngredient.unit}",
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(end = 16.dp),
-                        color = Color.White
-                    )
+                    Column(
+                        modifier = Modifier.padding(end = 16.dp)
+                    ) {
+                        Text(
+                            text = recipe.secondIngredient.name,
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Text(
+                            text = "${recipe.secondIngredient.amount} " +
+                                    "${recipe.secondIngredient.unit}",
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
                     AsyncImage(
                         model = recipe.secondIngredient.image,
                         contentDescription = null,
@@ -93,12 +135,18 @@ fun RecipeDetails(recipe: Recipe) {
                             .clip(shape = CircleShape)
                             .height(90.dp)
                             .width(90.dp)
-                            .border(width = 4.dp, color = Color.White, shape = CircleShape)
+                            .border(width = 4.dp, color = appleGreen, shape = CircleShape)
                     )
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = 12.dp, bottom = 48.dp)
+                    modifier = Modifier
+                        .padding(
+                            top = 12.dp,
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = 48.dp
+                        )
                 ) {
                     AsyncImage(
                         model = recipe.thirdIngredient.image,
@@ -108,32 +156,27 @@ fun RecipeDetails(recipe: Recipe) {
                             .clip(shape = CircleShape)
                             .height(90.dp)
                             .width(90.dp)
-                            .border(width = 4.dp, color = Color.White, shape = CircleShape)
+                            .border(width = 4.dp, color = appleGreen, shape = CircleShape)
                     )
-                    Text(
-                        text = "${recipe.thirdIngredient.name}, " +
-                                "${recipe.thirdIngredient.amount} " +
-                                "${recipe.thirdIngredient.unit}",
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(start = 16.dp),
-                        color = Color.White
-                    )
+                    Column(
+                        modifier = Modifier.padding(start = 16.dp)
+                    ) {
+                        Text(
+                            text = recipe.thirdIngredient.name,
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Text(
+                            text = "${recipe.thirdIngredient.amount} " +
+                                    "${recipe.thirdIngredient.unit}",
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
                 }
-
             }
-            items(recipe.instructions) {step ->
-                StepItem(step = step)
-            }
-//
-//            LazyColumn(
-//                userScrollEnabled = false
-//            ) {
-//
-//            }
         }
     }
-}
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(name = "Light Mode")
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -141,10 +184,10 @@ fun RecipeDetails(recipe: Recipe) {
     name = "Dark Mode"
 )
 @Composable
-fun DefaultPreview() {
+fun Preview() {
     ThreesomeMealTheme {
         Surface {
-            RecipeDetails(recipe = SampleData.potatoes)
+            RecipeDetails(recipe = SampleData.martini)
         }
     }
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "780316049018",
+    "project_id": "threesomemeal",
+    "storage_bucket": "threesomemeal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780316049018:android:fbd947ea3bb4157eeec5c3",
+        "android_client_info": {
+          "package_name": "com.polinasmogi.threesomemeal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780316049018-1rpt0lvnaiushh5nristobegumv3nrds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByAHdAIxwm5tFcjrlPZzxXcqYg1K0eVyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780316049018-1rpt0lvnaiushh5nristobegumv3nrds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

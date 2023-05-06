@@ -1,9 +1,7 @@
 package com.polinasmogi.threesomemeal.ui
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,7 +18,9 @@ import kotlin.random.Random
 fun StepItem(
     step: String
 ) {
-    Row {
+    Row(
+        modifier = Modifier.padding(bottom = 16.dp)
+    ) {
         Icon(
             painter = painterResource(R.drawable.ic_flower),
             modifier = Modifier

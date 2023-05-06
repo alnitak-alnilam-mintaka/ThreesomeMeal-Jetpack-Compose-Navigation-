@@ -74,7 +74,7 @@ object SampleData {
         tags = listOf("vegan", "salty")
     )
 
-    private val martini = Recipe(
+    val martini = Recipe(
         id = 3,
         name = "Earl Grey martini",
         image = "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/earl-grey-martini-d966b7e.jpg",

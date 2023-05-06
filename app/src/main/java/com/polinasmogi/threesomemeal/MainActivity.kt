@@ -10,14 +10,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ThreesomeMealApp()
-//            ThreesomeMealTheme {
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = background
-//                ) {
-//                    RecipesSearchView()
-//                }
-//            }
         }
     }
 }
