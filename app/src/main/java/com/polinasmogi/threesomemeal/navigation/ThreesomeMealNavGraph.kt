@@ -7,8 +7,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.polinasmogi.threesomemeal.ui.list.RecipesRoute
-import com.polinasmogi.threesomemeal.ui.list.RecipesViewModel
+import com.polinasmogi.threesomemeal.navigation.ThreesomeMealDestinations
+import com.polinasmogi.threesomemeal.ui.recipesList.RecipesRoute
+import com.polinasmogi.threesomemeal.ui.recipesList.RecipesViewModel
 
 @Composable
 fun ThreesomeMealNavGraph(

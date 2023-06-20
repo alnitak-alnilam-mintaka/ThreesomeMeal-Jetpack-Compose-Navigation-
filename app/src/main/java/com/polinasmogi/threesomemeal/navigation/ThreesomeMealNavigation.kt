@@ -1,9 +1,4 @@
-package com.polinasmogi.threesomemeal.ui
-
-import com.polinasmogi.threesomemeal.ui.list.RecipesViewModel
-
-class ThreesomeMealNavigation {
-}
+package com.polinasmogi.threesomemeal.navigation
 
 /**
  * Destinations used in the [ThreesomeMealApp].

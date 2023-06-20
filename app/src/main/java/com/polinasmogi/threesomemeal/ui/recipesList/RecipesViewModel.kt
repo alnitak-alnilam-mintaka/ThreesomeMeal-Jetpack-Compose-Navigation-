@@ -1,14 +1,18 @@
-package com.polinasmogi.threesomemeal.ui.list
+package com.polinasmogi.threesomemeal.ui.recipesList
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.polinasmogi.threesomemeal.data.Recipe
-import com.polinasmogi.threesomemeal.data.SampleData
 import kotlinx.coroutines.flow.*
 
 class RecipesViewModel: ViewModel() {
 
-    private val viewModelState = MutableStateFlow(RecipesViewModelState(recipes = SampleData.recipesData))
+    private val database = Firebase.database.reference
+
+    private val viewModelState = MutableStateFlow(RecipesViewModelState(loading = true))
 
     val uiState = viewModelState
         .map(RecipesViewModelState::toUiState)
@@ -17,6 +21,28 @@ class RecipesViewModel: ViewModel() {
             SharingStarted.Eagerly,
             viewModelState.value.toUiState()
         )
+
+    init {
+        database.child("recipes").get().addOnSuccessListener {
+            val recipes = arrayListOf<Recipe>()
+
+            it.children.forEach { snapshot ->
+                val recipe = snapshot.getValue(Recipe::class.java)
+                if (recipe != null) {
+                    recipes.add(recipe)
+                }
+            }
+
+            viewModelState.update { state ->
+                state.copy(
+                    loading = false,
+                    recipes = recipes
+                )
+            }
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
+        }
+    }
 
     fun selectRecipe(recipe: Recipe) {
         viewModelState.update {
@@ -37,6 +63,7 @@ class RecipesViewModel: ViewModel() {
 }
 
 private data class  RecipesViewModelState(
+    val loading: Boolean = false,
     val recipes: List<Recipe>? = null,
     val selectedRecipe: Recipe? = null,
     val errorMessage: String = ""
@@ -47,6 +74,7 @@ private data class  RecipesViewModelState(
      */
     fun toUiState(): RecipeUiState =
         when {
+            loading -> RecipeUiState.Loading
             selectedRecipe != null -> RecipeUiState.RecipeInfo(recipe = selectedRecipe)
             recipes.isNullOrEmpty() -> RecipeUiState.NoRecipes(errorMessage = errorMessage)
             else -> RecipeUiState.RecipeList(recipes = recipes)
@@ -54,6 +82,8 @@ private data class  RecipesViewModelState(
 }
 
 sealed interface RecipeUiState {
+
+    object Loading : RecipeUiState
 
     data class NoRecipes(
         val errorMessage: String

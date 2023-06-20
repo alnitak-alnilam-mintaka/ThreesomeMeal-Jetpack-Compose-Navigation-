@@ -1,4 +1,4 @@
-package com.polinasmogi.threesomemeal.ui.list
+package com.polinasmogi.threesomemeal.ui.recipesList
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -6,8 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.polinasmogi.threesomemeal.data.Recipe
-import com.polinasmogi.threesomemeal.ui.RecipeDetails
-import com.polinasmogi.threesomemeal.ui.Recipes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -19,6 +17,9 @@ fun RecipesRoute(
     val uiState by recipesViewModel.uiState.collectAsStateWithLifecycle()
 
     when (uiState) {
+        RecipeUiState.Loading -> {
+            Loading()
+        }
         is RecipeUiState.NoRecipes -> {
 
         }

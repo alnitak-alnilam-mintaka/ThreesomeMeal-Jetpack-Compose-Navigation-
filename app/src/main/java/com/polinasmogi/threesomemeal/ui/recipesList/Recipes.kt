@@ -1,4 +1,4 @@
-package com.polinasmogi.threesomemeal.ui
+package com.polinasmogi.threesomemeal.ui.recipesList
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

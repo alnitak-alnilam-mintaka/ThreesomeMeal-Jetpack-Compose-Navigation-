@@ -1,20 +1,49 @@
 package com.polinasmogi.threesomemeal.data
 
+import com.google.gson.annotations.SerializedName
+
 data class Recipe(
-    val id: Int,
-    val name: String,
-    val image: String,
-    val firstIngredient: Ingredient,
-    val secondIngredient: Ingredient,
-    val thirdIngredient: Ingredient,
-    val instructions: List<String>,
-    val tags: List<String>
+    @SerializedName("id")
+    val id: Int = 0,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("image")
+    val image: String = "",
+    @SerializedName("firstIngredient")
+    val firstIngredient: Ingredient = Ingredient(
+        name = "",
+        amount = 0,
+        unit = "",
+        image = ""
+    ),
+    @SerializedName("secondIngredient")
+    val secondIngredient: Ingredient = Ingredient(
+        name = "",
+        amount = 0,
+        unit = "",
+        image = ""
+    ),
+    @SerializedName("thirdIngredient")
+    val thirdIngredient: Ingredient = Ingredient(
+        name = "",
+        amount = 0,
+        unit = "",
+        image = ""
+    ),
+    @SerializedName("instructions")
+    val instructions: List<String> = listOf(),
+    @SerializedName("tags")
+    val tags: List<String> = listOf()
 )
 data class Ingredient(
-    val name: String,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("amount")
     val amount: Int? = null,
+    @SerializedName("unit")
     val unit: String? = null,
-    val image: String
+    @SerializedName("image")
+    val image: String = ""
 )
 
 object SampleData {
